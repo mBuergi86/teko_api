@@ -29,7 +29,7 @@ func Run() {
 	log.Fatal(err)
 }
 
-// Index Handler for the index action
+// Index handler for the index action
 // GET /
 func Index(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	_, err := fmt.Fprint(writer, "Welcome to the Todo REST API!\n")
@@ -39,7 +39,7 @@ func Index(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	writer.WriteHeader(http.StatusOK)
 }
 
-// TodosGet Handler for the todos get action
+// TodosGet handler for the todos get action
 // GET /todos
 func TodosGet(writer http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	writer.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -67,7 +67,7 @@ func handleError(writer http.ResponseWriter, statusCode int, text string) {
 	}
 }
 
-// TodoGetById Handler for a todo get by id action
+// TodoGetById handler for a todo get by id action
 func TodoGetById(writer http.ResponseWriter, _ *http.Request, params httprouter.Params) {
 	writer.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	// Get todo id from url parameters
@@ -86,7 +86,7 @@ func TodoGetById(writer http.ResponseWriter, _ *http.Request, params httprouter.
 	}
 }
 
-// TodoPost Handler for the todos post action
+// TodoPost handler for the todos post action
 func TodoPost(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	writer.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	var todo models.Todo
