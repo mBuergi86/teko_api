@@ -4,7 +4,7 @@ import (
 	"awesomeProject/entity"
 )
 
-type TodoPersistence interface {
+type TodoRepository interface {
 	Todos() []entity.Todo
 	TodoID(string) (entity.Todo, error)
 	CreateTodo(entity.Todo) entity.Todo

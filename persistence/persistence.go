@@ -8,11 +8,11 @@ import (
 	"strconv"
 )
 
-type TodoRepo struct {
+type TodoPersistence struct {
 	todos []entity.Todo
 }
 
-func NewTodoPersistence() (*TodoRepo, error) {
+func NewTodoPersistence() (*TodoPersistence, error) {
 	file, err := utility.OpenRead()
 	if err != nil {
 		return nil, fiber.ErrNotFound
@@ -23,14 +23,14 @@ func NewTodoPersistence() (*TodoRepo, error) {
 		todos = append(todos, csvData.Todo...)
 	}
 
-	return &TodoRepo{todos}, nil
+	return &TodoPersistence{todos}, nil
 }
 
-func (t *TodoRepo) Todos() []entity.Todo {
+func (t *TodoPersistence) Todos() []entity.Todo {
 	return t.todos
 }
 
-func (t *TodoRepo) TodoID(id string) (entity.Todo, error) {
+func (t *TodoPersistence) TodoID(id string) (entity.Todo, error) {
 	for _, todo := range t.todos {
 		if todo.Id == id {
 			return todo, nil
@@ -39,7 +39,7 @@ func (t *TodoRepo) TodoID(id string) (entity.Todo, error) {
 	return entity.Todo{}, errors.New("todo not found")
 }
 
-func (t *TodoRepo) CreateTodo(newTask entity.Todo) entity.Todo {
+func (t *TodoPersistence) CreateTodo(newTask entity.Todo) entity.Todo {
 	nextID := utility.NextID(t.todos)
 	newTask.Id = strconv.Itoa(nextID)
 
@@ -51,7 +51,7 @@ func (t *TodoRepo) CreateTodo(newTask entity.Todo) entity.Todo {
 	return newTask
 }
 
-func (t *TodoRepo) UpdateTodo(id string, updateTask entity.Todo) (entity.Todo, error) {
+func (t *TodoPersistence) UpdateTodo(id string, updateTask entity.Todo) (entity.Todo, error) {
 	newTodos := make([]entity.Todo, 0)
 
 	for i, item := range t.todos {
@@ -70,7 +70,7 @@ func (t *TodoRepo) UpdateTodo(id string, updateTask entity.Todo) (entity.Todo, e
 	return entity.Todo{}, errors.New("todo not found")
 }
 
-func (t *TodoRepo) DeleteTodo(id string) ([]entity.Todo, error) {
+func (t *TodoPersistence) DeleteTodo(id string) ([]entity.Todo, error) {
 	for i, item := range t.todos {
 		if item.Id == id {
 			t.todos = append(t.todos[:i], t.todos[i+1:]...)
