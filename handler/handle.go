@@ -23,7 +23,7 @@ func TodoID(c *fiber.Ctx) error {
 	c.Set("Content-Type", "application/json")
 
 	id := c.Params("id")
-	if utility.IsNumeric(id) {
+	if !utility.IsNumeric(id) {
 		return c.Status(fiber.StatusBadRequest).JSON(errors.ErrInvalidID)
 	}
 
