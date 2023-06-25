@@ -6,9 +6,12 @@ import (
 )
 
 func Routing(app *fiber.App) {
-	app.Get("/todos", handler.Todos)
-	app.Get("/todos/:id", handler.TodoID)
-	app.Post("/todos", handler.CreateTodo)
-	app.Put("/todos/:id", handler.UpdateTodo)
-	app.Delete("/todos/:id", handler.DeleteTodo)
+	todos := app.Group("/todos")
+	//v1 := todos.Group("/v1")
+
+	todos.Get("/", handler.Todos)
+	todos.Get("/:id", handler.TodoID)
+	todos.Post("/", handler.CreateTodo)
+	todos.Put("/:id", handler.UpdateTodo)
+	todos.Delete("/:id", handler.DeleteTodo)
 }
