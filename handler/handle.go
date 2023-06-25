@@ -4,6 +4,7 @@ import (
 	"awesomeProject/entity"
 	"awesomeProject/errors"
 	"awesomeProject/persistence"
+	"awesomeProject/utility"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 )
@@ -22,7 +23,7 @@ func TodoID(c *fiber.Ctx) error {
 	c.Set("Content-Type", "application/json")
 
 	id := c.Params("id")
-	if id == "" {
+	if utility.IsNumeric(id) {
 		return c.Status(fiber.StatusBadRequest).JSON(errors.ErrInvalidID)
 	}
 
@@ -60,7 +61,7 @@ func UpdateTodo(c *fiber.Ctx) error {
 	c.Set("Content-Type", "application/json")
 
 	id := c.Params("id")
-	if id == "" {
+	if utility.IsNumeric(id) {
 		return c.Status(fiber.StatusBadRequest).JSON(errors.ErrTodoNotFound)
 	}
 
@@ -92,7 +93,7 @@ func DeleteTodo(c *fiber.Ctx) error {
 	c.Set("Content-Type", "application/json")
 
 	id := c.Params("id")
-	if id == "" {
+	if utility.IsNumeric(id) {
 		return c.Status(fiber.StatusBadRequest).JSON(errors.ErrInvalidID)
 	}
 
