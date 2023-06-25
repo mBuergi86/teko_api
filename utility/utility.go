@@ -6,7 +6,6 @@ import (
 	"github.com/joho/godotenv"
 	"io"
 	"os"
-	"regexp"
 	"strconv"
 )
 
@@ -137,6 +136,6 @@ func NextID(data []entity.Todo) int {
 	return nextID
 }
 
-func IsNumeric(input string) bool {
+/*func IsNumeric(input string) bool {
 	return regexp.MustCompile(`^[0-9]+$`).MatchString(input)
-}
+}*/

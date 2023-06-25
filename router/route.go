@@ -7,11 +7,14 @@ import (
 
 func Routing(app *fiber.App) {
 	todos := app.Group("/todos")
-	//v1 := todos.Group("/v1")
+	//v1 := todos.Group("/v1", func(c *fiber.Ctx) error {
+	//		c.Set("Version", "v1")
+	//		return c.Next()
+	//	})
 
 	todos.Get("/", handler.Todos)
-	todos.Get("/:id", handler.TodoID)
+	todos.Get("/:id<regex(^[0-9]+$)}>", handler.TodoID)
 	todos.Post("/", handler.CreateTodo)
-	todos.Put("/:id", handler.UpdateTodo)
-	todos.Delete("/:id", handler.DeleteTodo)
+	todos.Put("/:id<regex(^[0-9]+$)}>", handler.UpdateTodo)
+	todos.Delete("/:id<regex(^[0-9]+$)}>", handler.DeleteTodo)
 }
