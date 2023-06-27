@@ -13,7 +13,7 @@ func NewErrorResponse(message string) ErrorResponse {
 }
 
 var (
-	ErrInvalidID      = NewErrorResponse("Invalid ID")
+	//ErrInvalidID      = NewErrorResponse("Invalid ID")
 	ErrTodoNotFound   = NewErrorResponse("Todo not found")
 	ErrFileNotCreated = NewErrorResponse("File cannot be created")
 	ErrNotImplemented = NewErrorResponse("Not implemented")
